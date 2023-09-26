@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { createUseStyles } from "react-jss";
 import logo from "../assets/SVGLogo.svg";
 import menu from "../assets/menu.svg";
 import close from "../assets/close.svg";
-import { useLocation } from "react-router-dom";
+import Fade from 'react-reveal/Fade';
+import Slide from 'react-reveal/Slide';
 
 const Header = () => {
   const classes = useStyles();
@@ -16,27 +17,15 @@ const Header = () => {
 
 
   return (
+    <Slide top>
     <header className={classes.header}>
-      <div className={classes.logo}>
-        <img src={logo} alt="logo" className={classes.logoImg} />
-      </div>
       <div>
       <nav className={classes.nav}>
-        <div className={classes.hamburger} onClick={toggleMenu}>
-          <img src={showMenu ? close : menu} alt="menu" />
-        </div>
         <div
           className={`${classes.menu} ${showMenu ? classes.show : ""}`}
           onClick={toggleMenu}
         >
-          <a
-              href="/"
-              className={`${classes.link} ${
-                location.pathname === "/" ? classes.active : ""
-              }`}
-            >
-              HOME
-            </a>
+          <div className={classes.left}>
             <a
               href="/about"
               className={`${classes.link} ${
@@ -53,6 +42,9 @@ const Header = () => {
             >
               FEATURES
             </a>
+            </div>
+              <a href="/"><img src={logo} alt="logo" className={classes.logoImg} /></a>
+            <div className={classes.right}>
             <a
               href="/book"
               className={`${classes.link} ${
@@ -69,10 +61,12 @@ const Header = () => {
             >
               CONTACT
             </a>
+            </div>
         </div>
       </nav>
       </div>
     </header>
+    </Slide>
   );
 };
 
@@ -80,36 +74,48 @@ const useStyles = createUseStyles({
   header: {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
     paddingTop: "1rem",
     backgroundColor: "#f5f5f5",
     color: "#fff",
     height: "auto",
-  },
-  logo: {
-    width: "auto",
-    height: "90%",
-    maxWidth: "100%",
+    position: "fixed",
+    width: "100%",
+    zIndex: "2",
   },
   logoImg: {
     width: "100%",
     height: "100%",
-    maxHeight: "150px",
-    objectFit: "contain",
+    maxHeight: "100px",
+    minHeight: "75px !important",
   },
   nav: {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
     paddingTop: "1rem",
     paddingBottom: "1rem",
     width: "100%",
     fontFamily: "Raleway, sans-serif",
     fontWeight: "400",
+    "& div": {
+      flex: 1,
+      display: "flex",
+      justifyContent: "center",
+    },
     "@media (max-width: 768px)": {
       width: "100%",
     },
+  },
+  left: {
+    display: "flex !important",
+    justifyContent: "flex-end !important",
+    paddingRight: "2rem",
+  },
+  right: {
+    justifyContent: "flex-start !important",
+    paddingLeft: "2rem",
   },
   hamburger: {
     display: "none",
@@ -122,8 +128,8 @@ const useStyles = createUseStyles({
   menu: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
-    width: "60vw",
+    justifyContent: "center",
+    width: "90vw",
     alignItems: "center",
     paddingBottom: "1rem",
     "@media (max-width: 768px)": {
@@ -146,20 +152,21 @@ const useStyles = createUseStyles({
     color: "#000",
     fontSize: "1.2rem",
     transition: "all 0.4s ease-in-out",
+    padding: "0.5rem",
+    paddingRight: "1rem",
+    paddingLeft: "1rem",
+    "& img": {},
     "&:hover": {
-      textDecoration: "underline",
+      backgroundColor: "#3c5f30",
+      color: "#fff",
       transition: "all 0.4s ease-in-out",
     },
     "@media (max-width: 768px)": {
       fontSize: "2rem",
-      
     },
   },
   show: {
     display: "flex",
-  },
-  active: {
-    textDecoration: "underline",
   },
 });
 

@@ -30,6 +30,7 @@ const useStyles = createUseStyles({
     alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
+    overflowY: 'hidden !important',
   }
 })
 
